@@ -1,39 +1,73 @@
-# Automated-Web-Research-Pipeline-with-Selenium-and-Ollama
-This project presents a sophisticated, end-to-end Retrieval-Augmented Generation (RAG) pipeline designed to bridge the gap between real-time web discovery and local AI-driven synthesis. The system automates the entire research workflow: from identifying relevant web sources via automated search and extracting dynamic content using Selenium, to processing that data into semantic knowledge chunks and generating cohesive, streaming summaries through a locally hosted Large Language Model (LLM).
+# Automated-Web-RAG-Pipeline
 
-Unlike static knowledge bases, this pipeline operates on live web data, demonstrating how modern automation tools and RAG architectures can be combined to create a private, high-performance "Deep Research" assistant that requires no external API subscriptions.
+This project presents a comprehensive, end-to-end Retrieval-Augmented Generation (RAG) system designed to perform live web research, semantic content retrieval, and AI-powered summarization. Given a natural-language user query, the system automatically searches the web, scrapes relevant websites in real time, processes and embeds the extracted content, retrieves the most relevant information, and synthesizes a high-quality answer using a locally hosted Large Language Model (LLM).
+
+Unlike static knowledge-base chatbots or offline RAG systems, this project operates on live web data, demonstrating how modern data engineering, information retrieval, and LLM inference can be combined into a unified, production-style pipeline. The system is fully local, tool-agnostic, and exposed through an interactive Gradio interface for easy experimentation and demonstration.
 
 # Workflow Overview
 ![Alt text for the image](images/Flow.png)
 
 # System Architecture & Pipeline Components
-The project is structured into modular components that form a unified data ingestion, processing, and AI-powered synthesis pipeline:
 
-   1. Dynamic Web Data Ingestion (Selenium-Based Scraping):
+The project is structured into modular components that together form a complete Search → Scrape → Retrieve → Generate pipeline.
 
-      - Automated Search: Programmatically interfaces with search engines to identify the most relevant URLs based on the user's natural language query.
+   1. Live Web Search & Navigation (Selenium + DuckDuckGo):
 
-      - Dynamic Extraction: Utilizes Selenium WebDriver in headless mode to navigate complex, JavaScript-heavy websites that traditional scrapers cannot access.
+      - Uses Selenium WebDriver to automate live web searches through DuckDuckGo.
 
-      - Content Cleaning: Extracts raw textual data from web elements, filtering out boilerplate content such as navigation bars, footers, and advertisements to ensure high-quality context for the LLM.
+      - Accepts a free-form user query and submits it directly to the search engine.
 
-   2. Semantic Data Processing (RAG Workflow):
+      - Collects organic search results dynamically without relying on paid APIs.
+     
+      - Opens each result in a separate browser tab to ensure isolation and stability.
+     
+      - Designed to work with any Chromium-based browser, keeping the search engine and browser choice decoupled.
+
+   2. Web Scraping & Content Extraction:
       
-      - Recursive Character Splitting: Implements intelligent text chunking that respects document structure (paragraphs and sentences) while maintaining overlap to preserve semantic context across fragments.
+      - Visits each discovered website and extracts meaningful textual content.
 
-      - Similarity Search: Utilizes Sentence-Transformers to embed the scraped text into a vector space, allowing the system to perform a mathematical similarity search to find the "needle in the haystack"—the specific chunks most relevant to the user's question.
+      - Each website is converted into clean, structured text, ready for downstream processing.
 
-      - Context Injection: Filters out noise and ranks the top-N most relevant fragments to be used as the "ground truth" for the generation phase.
+   3. Text Chunking & Semantic Embeddings:
 
-   3. Knowledge Synthesis Using Local LLM (Ollama):
-      
-      - Local Inference: Integrates Llama 3.2 (via Ollama) for fully private, local inference, ensuring that research data never leaves the user's machine.
+      - Aggregates scraped content from all websites into a unified text corpus.
 
-      - System Prompt Engineering: Employs a specialized "Search-to-Summary" system prompt that forces the model to synthesize information across multiple sources, prioritize accuracy, and use Markdown for structured reporting.
+      - Applies recursive text chunking to split large documents into overlapping, context-preserving chunks.
+     
+      - Converts each chunk into a dense vector embedding using a SentenceTransformer model.
+     
+      - Embeds the user query using the same embedding space.
 
-   4. Interactive Interface (Gradio):
+   4. Vector Similarity Retrieval (Retrieval Layer):
     
-      - Asynchronous UI: Built with Gradio Blocks, featuring a layout optimized for research: user input on the left and a expansive Markdown research report on the right.
+      - Computes cosine similarity between the user query embedding and all text chunk embeddings.
+     
+      - Selects the top-k most semantically relevant chunks.
+     
+      - This retrieval layer ensures the LLM reasons only over relevant, grounded content rather than raw scraped data.
+     
+   5. LLM-Based Answer Synthesis (Ollama – LLaMA 3.2):
+
+      - Integrates a locally hosted LLM using Ollama (LLaMA 3.2).
+     
+      - Injects the retrieved text chunks as contextual knowledge.
+     
+      - Streams responses token-by-token for real-time feedback.
+     
+   6. Interactive User Interface (Gradio):
+
+      - Provides a clean, web-based Gradio interface
+     
+      - Users can:
+
+         - Enter any natural-language question
+
+         - Observe live pipeline progress
+
+         - Receive a structured, summarized response
+
+      - Displays streamed LLM output in real time for improved UX.
 
 ![Alt text for the image](images/Gradio.png)
 
