@@ -68,6 +68,8 @@ The project is structured into modular components that together form a complete 
          - Receive a structured, summarized response
 
       - Displays streamed LLM output in real time for improved UX.
+     
+This is an Example.
 
 ![Alt text for the image](images/Gradio.png)
 
