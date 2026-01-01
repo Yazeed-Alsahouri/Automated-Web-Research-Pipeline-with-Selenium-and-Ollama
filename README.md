@@ -31,7 +31,7 @@ The project is structured into modular components that form a unified data inges
 
       - System Prompt Engineering: Employs a specialized "Search-to-Summary" system prompt that forces the model to synthesize information across multiple sources, prioritize accuracy, and use Markdown for structured reporting.
 
-   4. Dual-Column Interactive Interface (Gradio):
+   4. Interactive Interface (Gradio):
     
       - Asynchronous UI: Built with Gradio Blocks, featuring a layout optimized for research: user input on the left and a expansive Markdown research report on the right.
 
