@@ -1,0 +1,2 @@
+# Automated-Web-Research-Pipeline-with-Selenium-and-Ollama
+An end-to-end pipeline that automates the process of web discovery and knowledge synthesis. The system leverages Selenium for dynamic web scraping, implements recursive character chunking for semantic data processing, and utilizes a local Llama 3.2 model (Ollama) to generate real-time, streaming research summaries via side-by-side Gradio interface.
