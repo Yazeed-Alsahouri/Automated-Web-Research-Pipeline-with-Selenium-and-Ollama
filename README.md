@@ -4,7 +4,7 @@ This project presents a sophisticated, end-to-end Retrieval-Augmented Generation
 Unlike static knowledge bases, this pipeline operates on live web data, demonstrating how modern automation tools and RAG architectures can be combined to create a private, high-performance "Deep Research" assistant that requires no external API subscriptions.
 
 # Workflow Overview
-![Alt text for the image](images/Stack_Overflow_Project.png)
+![Alt text for the image](images/Flow.png)
 
 # System Architecture & Pipeline Components
 The project is structured into modular components that form a unified data ingestion, processing, and AI-powered synthesis pipeline:
