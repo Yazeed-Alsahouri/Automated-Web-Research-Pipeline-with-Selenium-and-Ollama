@@ -71,7 +71,7 @@ The project is structured into modular components that together form a complete 
      
 This is an Example.
 
-![Alt text for the image](images/Gradio.png)
+![Alt text for the image](images/Gradio.mp4)
 
 
 
